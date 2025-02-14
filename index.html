@@ -3,19 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M3U8 Player</title>
+    <title>Xəzər TV Canlı Yayım</title>
+    <!-- Video.js CSS -->
     <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
 </head>
 <body>
-    <h1>STREAM</h1>
-    <video id="my-video" class="video-js" controls preload="auto" width="640" height="360" data-setup="{}">
-        <source src="https://yayin2.canlitv.fun/livetv/xezertv.stream/chunklist.m3u8" type="application/x-mpegURL" />
-        <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a
-            web browser that supports HTML5 video
-        </p>
-    </video>
+    <h1>Xəzər TV Canlı Yayım</h1>
+    <button onclick="revealLink()">Linki Göstər</button>
+    <div id="videoContainer" style="display: none;">
+        <video id="my-video" class="video-js" controls preload="auto" width="640" height="360" data-setup="{}">
+            <source id="videoSource" src="" type="application/x-mpegURL" />
+            <p class="vjs-no-js">
+                JavaScript aktiv deyil. Zəhmət olmasa, JavaScript-i aktiv edin və ya HTML5 video dəstəyi olan bir brauzer istifadə edin.
+            </p>
+        </video>
+    </div>
 
+    <!-- Video.js Script -->
     <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
+    <script>
+        function revealLink() {
+            const videoContainer = document.getElementById('videoContainer');
+            const videoSource = document.getElementById('videoSource');
+
+            // Base64 şifrəli link
+            const encodedLink = "aHR0cHM6Ly95YXlpbjIuY2FubGl0di5mdW4vbGl2ZXR2L3hoZXplcnR2LnN0cmVhbS9jaHVua2xpc3QubTN1OA==";
+
+            // Şifrəni aç
+            const decodedLink = atob(encodedLink);
+
+            // Linki təyin et
+            videoSource.src = decodedLink;
+
+            // Video playeri yenidən yüklə
+            const player = videojs('my-video');
+            player.src({ src: decodedLink, type: 'application/x-mpegURL' });
+            player.play();
+
+            // Video konteynerini göstər
+            videoContainer.style.display = "block";
+        }
+    </script>
 </body>
 </html>
