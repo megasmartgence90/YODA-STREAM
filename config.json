@@ -1,18 +1,17 @@
 [
-    {
-        "channelID": "aztv",
-        "channelName": "AZTV",
-        "channelSource": "https://str.yodacdn.net/aztv/index.m3u8",
-        "channelProgramme": "https://azepg.ddns.net/aztv/15_days_archive__aztv_desc.xml",
-        "channelIconC": "/logos/aztv.svg",
-        "channelIconM": "/logos/aztv.svg"
-    },
-    {
-        "channelID": "ictimai",
-        "channelName": "İctimai",
-        "channelSource": "https://str.yodacdn.net/ictimai/index.m3u8",
-        "channelProgramme": "https://azepg.ddns.net/aztv/15_days_archive__itv_desc.xml",
-        "channelIconC": "/logos/itv.png",
-        "channelIconM": "/logos/itv.png"
-    }
+  {
+    "name": "Sayt 1",
+    "slug": "sayt-1",
+    "url": "https://example.com/sayt1"
+  },
+  {
+    "name": "Sayt 2",
+    "slug": "sayt-2",
+    "url": "https://example.com/sayt2"
+  },
+  {
+    "name": "Sayt 3",
+    "slug": "sayt-3",
+    "url": "https://example.com/sayt3"
+  }
 ]
