@@ -24,14 +24,18 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests pyyaml schedule  # 'schedule' əlavə edildi
+          pip install requests pyyaml schedule
 
       # 4. Python skriptini işə sal
       - name: Run Python script
         run: |
           python extract_m3u8.py
 
-      # 5. Dəyişiklikləri yoxla
+      # 5. Debug directory contents
+      - name: Debug directory contents
+        run: ls -R
+
+      # 6. Dəyişiklikləri yoxla
       - name: Check for changes
         id: changes
         run: |
@@ -41,7 +45,7 @@ jobs:
             echo "changes_detected=false" >> $GITHUB_OUTPUT
           fi
 
-      # 6. Dəyişikliklər varsa, commit et və push et
+      # 7. Dəyişikliklər varsa, commit et və push et
       - name: Commit and push changes
         if: steps.changes.outputs.changes_detected == 'true'
         run: |
