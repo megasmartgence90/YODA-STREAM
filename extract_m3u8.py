@@ -4,6 +4,7 @@ import json
 import re
 import schedule
 import time
+import os
 
 def load_config(config_file="config.yml"):
     """
@@ -50,8 +51,16 @@ def update_channel_sources(channels, new_token):
 def save_to_json(data, output_file):
     """
     Yenilənmiş kanal məlumatlarını JSON faylına saxlamaq.
+    Qovluğu yoxlayır və yoxdursa yaradır.
     """
     try:
+        # Qovluğu yoxla və yarat
+        output_dir = os.path.dirname(output_file)
+        if output_dir and not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+            print(f"Qovluq yaradıldı: {output_dir}")
+
+        # Faylı yaz
         with open(output_file, "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
         print(f"Yenilənmiş kanal məlumatları '{output_file}' faylına saxlanıldı.")
