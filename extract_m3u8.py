@@ -1,76 +1,80 @@
-import yaml
+import re
 import requests
+import sys
 import json
 import os
+from urllib.parse import urljoin
+from slugify import slugify
+from tqdm import tqdm
 
-def load_config(config_file="config.yml"):
-    """
-    YAML konfiqurasiya faylını yükləyir.
-    """
-    try:
-        with open(config_file, "r", encoding="utf-8") as file:
-            config = yaml.safe_load(file)
-        return config
-    except Exception as e:
-        print(f"Konfiqurasiya faylı yüklənə bilmədi: {e}")
+def get_stream_url(url, pattern, method="GET", headers={}, body={}):
+    if method == "GET":
+        r = requests.get(url, headers=headers)
+    elif method == "POST":
+        r = requests.post(url, json=body, headers=headers)
+    else:
+        print(method, "is not supported or wrong.")
+        return None
+    results = re.findall(pattern, r.text)
+    if len(results) > 0:
+        return results[0]
+    else:
+        print("No result found in the response. \nCheck your regex pattern {} for {}".format(method, url))
         return None
 
-def build_full_url(base_url, channel_path):
-    """
-    Qaynaq linkini və kanal yolunu birləşdirərək tam URL yaradır.
-    """
-    return f"{base_url}{channel_path}"
+def playlist_text(url):
+    text = ""
+    r = requests.get(url)
+    if r.status_code == 200:
+        for line in r.iter_lines():
+            line = line.decode()
+            if not line:
+                continue
+            if line[0] != "#":
+                text = text + urljoin(url, str(line))
+            else:
+                text = str(text) + str(line)
+            text += "\n"
 
-def save_to_json(data, output_file):
-    """
-    Yenilənmiş kanal məlumatlarını JSON faylına saxlamaq.
-    Qovluğu yoxlayır və yoxdursa yaradır.
-    """
-    try:
-        # Qovluğu yoxla və yarat
-        output_dir = os.path.dirname(output_file)
-        if output_dir and not os.path.exists(output_dir):
-            os.makedirs(output_dir, exist_ok=True)
-            print(f"Qovluq yaradıldı: {output_dir}")
+        return text
+    return ""
 
-        # Faylı yaz
-        with open(output_file, "w", encoding="utf-8") as file:
-            json.dump(data, file, ensure_ascii=False, indent=4)
-        print(f"Yenilənmiş kanal məlumatları '{output_file}' faylına saxlanıldı.")
-    except Exception as e:
-        print(f"Fayl saxlanılması mümkün olmadı: {e}")
 
-def manual_refresh():
-    """
-    Manual yeniləmə prosesi.
-    """
-    print("Manual yeniləmə başladı...")
-    
-    # Konfiqurasiya faylını yüklə
-    config = load_config()
-    if not config:
-        print("Konfiqurasiya yüklənmədi, proses dayandırıldı.")
-        return
 
-    # Qaynaq linkini əldə et
-    base_url = "https://str.yodacdn.net"
+def main():
+    config_file = open(sys.argv[1], "r", encoding="utf-8")
+    config = json.load(config_file)
+    for site in config:
+        site_path = os.path.join(os.getcwd(), site["slug"])
+        os.makedirs(site_path, exist_ok=True)
+        for channel in tqdm(site["channels"]):
+            channel_file_path = os.path.join(site_path, slugify(channel["name"].lower()) + ".m3u8")
+            channel_url = site["url"]
+            for variable in channel["variables"]:
+                channel_url = channel_url.replace(variable["name"], variable["value"])
+            stream_url = get_stream_url(channel_url, site["pattern"])
+            if not stream_url:
+                if os.path.isfile(channel_file_path):
+                    os.remove(channel_file_path)
+                continue
+            if site["output_filter"] not in stream_url:
+                if os.path.isfile(channel_file_path):
+                    os.remove(channel_file_path)
+                continue
+            if site["mode"] == "variant":
+                text = playlist_text(stream_url)
+            elif site["mode"] == "master":
+                text = "#EXTM3U\n##EXT-X-VERSION:3\n#EXT-X-STREAM-INF:BANDWIDTH={}\n{}".format(site["bandwidth"], stream_url)
+            else:
+                print("Wrong or missing playlist mode argument")
+                text = ""
+            if text:
+                channel_file = open(channel_file_path, "w+")
+                channel_file.write(text)
+            else:
+                if os.path.isfile(channel_file_path):
+                    os.remove(channel_file_path)
+                
 
-    # Kanalları yenilə
-    updated_channels = []
-    for channel in config.get("channels", []):
-        channel_name = channel.get("channelID")
-        channel_path = f"/{channel_name}/index.m3u8"
-        full_url = build_full_url(base_url, channel_path)
-
-        # Kanal məlumatlarını yenilə
-        channel["channelSource"] = full_url
-        updated_channels.append(channel)
-
-    # Yenilənmiş kanal məlumatlarını JSON faylına saxla
-    output_file = config.get("output_file", "output/updated_channels.json")
-    save_to_json(updated_channels, output_file)
-
-    print("Manual yeniləmə tamamlandı.")
-
-if __name__ == "__main__":
-    manual_refresh()
+if __name__=="__main__": 
+    main() 
