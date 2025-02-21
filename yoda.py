@@ -2,6 +2,8 @@ import yaml
 import requests
 import json
 import re
+import schedule
+import time
 
 def load_config(config_file="config.yml"):
     """
@@ -56,7 +58,12 @@ def save_to_json(data, output_file):
     except Exception as e:
         print(f"Fayl saxlanılması mümkün olmadı: {e}")
 
-def main():
+def manual_refresh():
+    """
+    Manual yeniləmə prosesi.
+    """
+    print("Manual yeniləmə başladı...")
+    
     # Konfiqurasiya faylını yüklə
     config = load_config()
     if not config:
@@ -82,6 +89,37 @@ def main():
     # Yenilənmiş kanal məlumatlarını JSON faylına saxlamaq
     output_file = config["output_file"]
     save_to_json(updated_channels, output_file)
+
+    print("Manual yeniləmə tamamlandı.")
+
+def auto_refresh_job():
+    """
+    Avtomatik yeniləmə işi (əgər aktivdirsə).
+    """
+    print("Avtomatik yeniləmə başladı...")
+    manual_refresh()
+
+def main():
+    # Konfiqurasiyadan zamanlama və manual yenilənmə parametrlərini əldə et
+    config = load_config()
+    if not config:
+        print("Konfiqurasiya yüklənmədi, proses dayandırıldı.")
+        return
+
+    auto_refresh = config["schedule"].get("auto_refresh", False)
+    interval_hours = config["schedule"].get("interval_hours", 1)
+
+    if auto_refresh:
+        # Avtomatik yenilənməni planlaşdır
+        schedule.every(interval_hours).hours.do(auto_refresh_job)
+        print(f"Avtomatik yeniləmə hər {interval_hours} saatda bir aktiv edildi.")
+    else:
+        print("Avtomatik yenilənmə deaktiv edilib. Manual yenilənmə üçün 'manual_refresh()' funksiyasını çağırın.")
+
+    # Daimi döngü (avtomatik yenilənmə üçün)
+    while auto_refresh:
+        schedule.run_pending()
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
