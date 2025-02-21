@@ -1,227 +1,390 @@
-const channel_config = [
-  {
-    channelID: "aztv",
-    channelName: "AZTV",
-    channelSource: "https://str.yodacdn.net/aztv/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__aztv_desc.xml",
-    channelIconC: "/logos/aztv.svg",
-    channelIconM: "/logos/aztv.svg",
-  },
-  {
-    channelID: "ictimai",
-    channelName: "Ä°ctimai",
-    channelSource: "https://str.yodacdn.net/ictimaitv/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__itv_desc.xml",
-    channelIconC: "/logos/itv.png",
-    channelIconM: "/logos/itv.png",
-  },
-  {
-    channelID: "bakutv",
-    channelName: "Baku TV",
-    channelSource: "https://str.yodacdn.net/bakutv/video.m3u8",
-    // channelProgramme:
-    //   "https://azepg.ddns.net/aztv/15_days_archive__space_desc.xml",
-    channelIconC: "/logos/bakutv.webp",
-    channelIconM: "/logos/bakutv.webp",
-  },
-  {
-    channelID: "idman",
-    channelName: "Ä°dman TV",
-    channelSource: "https://str.yodacdn.net/idman/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__idman_desc.xml",
-    channelIconC: "/logos/idman.svg",
-    channelIconM: "/logos/idman.svg",
-  },
-  {
-    channelID: "ntv",
-    channelName: "NaxÃ§Ä±van  TV",
-    channelSource: "https://str1.yodacdn.net/ntv/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__nxtv_desc.xml",
-    channelIconC: "/logos/ntv.png",
-    channelIconM: "/logos/ntv.png",
-  },
-  {
-    channelID: "atv",
-    channelName: "ATV",
-    channelSource: "https://str.yodacdn.net/atv/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__atv_desc.xml",
-    channelIconC: "/logos/atv.svg",
-    channelIconM: "/logos/atv.svg",
-  },
-  {
-    channelID: "real",
-    channelName: "Real TV",
-    channelSource: "https://str.yodacdn.net/real/video.m3u8",
-    channelIconC: "/logos/real.svg",
-    channelIconM: "/logos/real.svg",
-  },
-  {
-    channelID: "qafkaz",
-    channelName: "Qafqaz TV",
-    channelSource: "https://str.yodacdn.net/qafkaz/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__qafkaz_desc.xml",
-    channelIconC: "/logos/qafqaz.svg",
-    channelIconM: "/logos/qafqaz.svg",
-  },
-  {
-    channelID: "xazar",
-    channelName: "XÆZÆR",
-    channelSource: "https://str.yodacdn.net/xazar/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__xezer_desc.xml",
-    channelIconC: "/logos/xazar.png",
-    channelIconM: "/logos/xazar.png",
-  },
-  {
-    channelID: "arb24",
-    channelName: "ARB24",
-    channelSource: "https://str.yodacdn.net/arb24/video.m3u8",
-    channelIconC: "/logos/arb24.svg",
-    channelIconM: "/logos/arb24.svg",
-  },
-
-
-  {
-    channelID: "apatv",
-    channelName: "APA TV",
-    channelSource: "https://str.yodacdn.net/apatv/video.m3u8",
-    channelIconC: "/logos/apatv.png",
-    channelIconM: "/logos/apatv.png",
-  },
-
-
-  {
-    channelID: "haberglobal",
-    channelName: "Haber Global",
-    channelSource: "https://str.yodacdn.net/haberglobal/video.m3u8",
-    // channelProgramme:
-    //   "https://azepg.ddns.net/aztv/15_days_archive__space_desc.xml",
-    channelIconC: "/logos/haber.png",
-    channelIconM: "/logos/haber.png",
-  },
-  {
-    channelID: "tmbtr",
-    channelName: "TMB TV",
-    channelSource: "https://str.yodacdn.net/tmbtr/video.m3u8",
-    // channelProgramme:
-    //   "https://azepg.ddns.net/aztv/15_days_archive__space_desc.xml",
-    channelIconC: "/logos/tmb.png",
-    channelIconM: "/logos/tmb.png",
-  },
-  {
-    channelID: "tmbaz",
-    channelName: "TMB AzÉ™rbaycan",
-    channelSource: "https://str.yodacdn.net/tmbaz/video.m3u8",
-    // channelProgramme:
-    //   "https://azepg.ddns.net/aztv/15_days_archive__space_desc.xml",
-    channelIconC: "/logos/tmb.png",
-    channelIconM: "/logos/tmb.png",
-  },
-  {
-    channelID: "arb",
-    channelName: "ARB",
-    channelSource: "https://str.yodacdn.net/arb/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__arb_desc.xml",
-    channelIconC: "/logos/arb.svg",
-    channelIconM: "/logos/arb.svg",
-  },
-  {
-    channelID: "start",
-    channelName: "Kanal S",
-    channelSource: "https://str.yodacdn.net/start/video.m3u8",
-    // channelProgramme:
-    //   "https://azepg.ddns.net/aztv/15_days_archive__space_desc.xml",
-    channelIconC: "/logos/start.png",
-    channelIconM: "/logos/start.png",
-  },
-  {
-    channelID: "kanal35",
-    channelName: "Kanal 35",
-    channelSource: "https://str.yodacdn.net/kanal35/index.m3u8",
-    // channelProgramme:
-    // "https://azepg.ddns.net/aztv/15_days_archive__idman_desc.xml",
-    channelIconC: "/logos/kanal35.png",
-    channelIconM: "/logos/kanal35.png",
-  },
-  {
-    channelID: "eltv",
-    channelName: "ELTV",
-    channelSource: "https://str.yodacdn.net/eltv/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__eltv_desc.xml",
-    channelIconC: "/logos/eltv_logo.png",
-    channelIconM: "/logos/eltv_logo.png",
-  },
-  {
-    channelID: "arbgunesh",
-    channelName: "ARB GÃœNÆÅ",
-    channelSource: "https://str.yodacdn.net/arbgunesh/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__gunesh_desc.xml",
-    channelIconC: "/logos/gunesh.svg",
-    channelIconM: "/logos/gunesh.svg",
-  },
-  {
-    channelID: "cbc",
-    channelName: "CBC",
-    channelSource: "https://str1.yodacdn.net/cbc/video.m3u8",
-    channelIconC: "/logos/cbc.svg",
-    channelIconM: "/logos/cbc.svg",
-  },
-  {
-    channelID: "medeniyyet",
-    channelName: "MÉ™dÉ™niyyÉ™t",
-    channelSource: "https://str.yodacdn.net/medeniyyet/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__madaniyyet_desc.xml",
-    channelIconC: "/logos/medeniyyet.svg",
-    channelIconM: "/logos/medeniyyet.svg",
-  },
-  {
-    channelID: "space",
-    channelName: "Space",
-    channelSource: "https://str.yodacdn.net/space/video.m3u8",
-    channelProgramme: "https://azepg.ddns.net/aztv/15_days_archive__space_desc.xml",
-    channelIconC: "/logos/space.png",
-    channelIconM: "/logos/space.png",
-  },
-  {
-    channelID: "tmb",
-    channelName: "Vostok TV",
-    channelSource: "https://str.yodacdn.net/tmb/video.m3u8",
-    channelIconC: "/logos/vostok.png",
-    channelIconM: "/logos/vostok.png",
-  },
-  {
-    channelID: "agrotv",
-    channelName: "AGRO TV",
-    channelSource: "https://str.yodacdn.net/agrotv/video.m3u8",
-    channelIconC: "/logos/agrotv.png",
-    channelIconM: "/logos/agrotv.png",
-  },
-  {
-    channelID: "showplus",
-    channelName: "Show Plus TV",
-    channelSource: "https://str.yodacdn.net/showplus/video.m3u8",
-    channelIconC: "/logos/showplus.png",
-    channelIconM: "/logos/showplus.png",
-  },
-  {
-    channelID: "mtvaz",
-    channelName: "MTV Azerbaijan",
-    channelSource: "https://str.yodacdn.net/mtvaz/video.m3u8",
-    channelIconC: "/logos/mtv.png",
-    channelIconM: "/logos/mtv.png",
-  },
-  {
-    channelID: "shtv",
-    channelName: "SH TV",
-    channelSource: "https://str.yodacdn.net/shtv/video.m3u8",
-    channelIconC: "/logos/shtv.png",
-    channelIconM: "/logos/shtv.png",
-  },
-  {
-    channelID: "vip",
-    channelName: "VIP HD",
-    channelSource: "https://str.yodacdn.net/vip/video.m3u8",
-    channelIconC: "/logos/viphd.png",
-    channelIconM: "/logos/viphd.png",
-  },
-
-];
+[
+    {
+        "name": "MyVideo",
+        "slug": "myvideo-az",
+        "url": "http://149.255.152.218/channels.aspx?channel=CHANNEL_NAME.m3u8",
+        "method": "GET",
+        "pattern": "<source.*?src=\"(.*?)\"",
+        "expire_duration": "1D",
+        "mode": "variant",
+        "output_filter": "token",
+        "headers": {},
+        "channels": [
+            {
+                "name": "AZ TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "aztv"
+                    }
+                ]
+            },
+            {
+                "name": "Medeniyet TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "medeniyet"
+                    }
+                ]
+            },
+            {
+                "name": "Ictimai TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "ictimai"
+                    }
+                ]
+            },
+            {
+                "name": "ATV Azad",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "atvaz"
+                    }
+                ]
+            },
+            {
+                "name": "Xezer TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "xazer"
+                    }
+                ]
+            },
+            {
+                "name": "Sehiyye TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "sthv"
+                    }
+                ]
+            },
+            {
+                "name": "Space TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "space"
+                    }
+                ]
+            },
+            {
+                "name": "CBC",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "cbcaz"
+                    }
+                ]
+            },
+            {
+                "name": "Dunya TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "dunya"
+                    }
+                ]
+            },
+            {
+                "name": "ARB",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "arbhd"
+                    }
+                ]
+            },
+            {
+                "name": "ARB 24",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "arb24"
+                    }
+                ]
+            },
+            {
+                "name": "ARB Gunes",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "arbgunes"
+                    }
+                ]
+            },
+            {
+                "name": "Kanal S",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "kanals"
+                    }
+                ]
+            },
+            {
+                "name": "Real TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "real"
+                    }
+                ]
+            },
+            {
+                "name": "MCJ TV Shop",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "mcj"
+                    }
+                ]
+            },
+            {
+                "name": "TMB Azerbaycan",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "tmbaz"
+                    }
+                ]
+            },
+            {
+                "name": "Baku TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "bakutv"
+                    }
+                ]
+            },
+            {
+                "name": "Terra",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "terra"
+                    }
+                ]
+            },
+            {
+                "name": "VIP",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "vip"
+                    }
+                ]
+            },
+            {
+                "name": "MTV Azerbaycan",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "mtvazerbaycan"
+                    }
+                ]
+            },
+            {
+                "name": "TMB TV",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "tmbtv"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "ParsaTV",
+        "slug": "parsatv",
+        "url": "https://www.parsatv.com/embed.php?name=CHANNEL_NAME",
+        "method": "GET",
+        "pattern": "file: \"(.*?)\",",
+        "expire_duration": "2H",
+        "mode": "variant",
+        "output_filter": "token",
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+        },
+        "channels": [
+            {
+                "name": "ZDF",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "ZDF"
+                    }
+                ]
+            },
+            {
+                "name": "VOX",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "VOX"
+                    }
+                ]
+            },
+            {
+                "name": "Sixx",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "Sixx"
+                    }
+                ]
+            },
+            {
+                "name": "RTL",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "RTL"
+                    }
+                ]
+            },
+            {
+                "name": "RTL 2",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "RTL-Zwei"
+                    }
+                ]
+            },
+            {
+                "name": "RTL Nitro",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "RTL-Nitro"
+                    }
+                ]
+            },
+            {
+                "name": "Super RTL",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "Super-RTL"
+                    }
+                ]
+            },
+            {
+                "name": "DMAX",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "DMAX"
+                    }
+                ]
+            },
+            {
+                "name": "ProSieben",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "ProSieben"
+                    }
+                ]
+            },
+            {
+                "name": "ProSieben MAXX",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "ProSieben-MAXX"
+                    }
+                ]
+            },
+            {
+                "name": "ntv",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "ntv"
+                    }
+                ]
+            },
+            {
+                "name": "Welt",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "Welt"
+                    }
+                ]
+            },
+            {
+                "name": "Sat1",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "Sat1"
+                    }
+                ]
+            },
+            {
+                "name": "Sat1 Gold",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "Sat1-Gold"
+                    }
+                ]
+            },
+            {
+                "name": "WDR",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "Westdeutscher-Rundfunk"
+                    }
+                ]
+            },
+            {
+                "name": "Kabel 1",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "Kabel-Eins"
+                    }
+                ]
+            },
+            {
+                "name": "Tele 5",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "Tele-5"
+                    }
+                ]
+            },
+            {
+                "name": "ARD",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "ARD"
+                    }
+                ]
+            },
+            {
+                "name": "3sat",
+                "variables": [
+                    {
+                        "name": "CHANNEL_NAME",
+                        "value": "3sat"
+                    }
+                ]
+            }
+        ]
+    }
+]
