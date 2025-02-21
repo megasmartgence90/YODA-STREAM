@@ -3,10 +3,11 @@ name: run main.py
 
 on:
   schedule:
-    - cron: '0 */2 * * *' # Runs in every 3 hours
+    - cron: '0 */2 * * *' # Runs every 2 hours
   pull_request:
-      branches:
-        - main
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   build:
