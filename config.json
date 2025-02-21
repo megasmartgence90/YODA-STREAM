@@ -1,5 +1,15 @@
 [
   {
+    "name": "Yoda Stream",
+    "slug": "yoda-stream",
+    "url": "https://str.yodacdn.net",
+    "channels": [
+      {"name": "aztv", "url": "https://str.yodacdn.net/channel1"},
+      {"name": "atv", "url": "https://str.yodacdn.net/channel2"}
+    ]
+  }
+][
+  {
     "name": "Sayt 1",
     "slug": "sayt-1",
     "url": "https://example.com/sayt1"
